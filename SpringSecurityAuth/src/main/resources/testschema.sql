@@ -1,0 +1,23 @@
+--DROP TABLE IF EXISTS authorities;
+--DROP TABLE IF EXISTS connection;
+--DROP TABLE IF EXISTS transaction;
+--DROP TABLE IF EXISTS account;
+--
+--CREATE TABLE account (
+--  account_id int auto_increment,
+--  first_name VARCHAR(50) NOT NULL,
+--  last_name VARCHAR(50) NOT NULL,
+--  email VARCHAR(50) NOT NULL UNIQUE,
+--  password VARCHAR(100) NOT NULL,
+--  enabled TINYINT NOT NULL DEFAULT 1,
+--  role varchar(50) NOT NULL,
+--  PRIMARY KEY (account_id)
+--);
+
+--CREATE TABLE authorities (
+--  email VARCHAR(50) NOT NULL,
+--  authority VARCHAR(50) NOT NULL,
+--  FOREIGN KEY (email) REFERENCES account(email)
+--);
+--
+--CREATE UNIQUE INDEX ix_auth_email on authorities (email,authority);

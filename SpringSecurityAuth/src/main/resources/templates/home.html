@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+</head>
+<body>
+<div id="container">
+    <div id="header">
+        <div id="top_header">
+        <div id="logo">logo</div>
+        <div id="link_container">
+            <a href="/home">Home</a>
+            <a href="/profile">Profile</a>
+            <a href="/transfer">Transfer</a>
+            <a href="/contact">Contact</a>
+            <a th:if="${user == null}" href="/login">login</a>
+                <a th:if="${user != null}" href="/logout">logoff</a>
+        </div>
+        </div>
+        <div id="page_link">
+            <a href="/home">home</a>
+        </div>
+
+    </div>
+    <div id="mainContent" class="wrapper">
+        <div id="leftSection" class="aside aside-1">
+
+        </div>
+        <div id="centreSection" class="main" >
+
+            <h1>Welcome to Pay My Buddy
+                  <b th:text="${userdetails.get('login')!=null ? userdetails.get('login') : userdetails.get('name')}"> </b>
+            </h1>
+
+            <tr th:if="${user == null}">
+            <div id="register_links">
+                <a href="/login">login</a>
+                <a href="/register">register</a>
+            </div>
+
+            </tr>
+
+            <div>
+                <h2 class="h2">Liste des employées</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${accounts.empty}">
+                        <td colspan="3">Aucun employée en base de données</td>
+                    </tr>
+                    <tr th:each="account: ${accounts}">
+                        <td><span th:text="${account.firstName}"> Prénom </span></td>
+                        <td><span th:text="${account.lastName}"> Nom </span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="rightSection" class="aside aside-2">
+
+        </div>
+    </div>
+    <div id="footer">
+        <div id="footerLeft">Footer</div>
+        <div id="footerRight">Copyleft 2013</div>
+    </div>
+</div>
+</body>
+</html>

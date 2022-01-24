@@ -1,0 +1,119 @@
+body {
+    font-family: 'Courier New';
+    font-size: 1em;
+    background-color: gray;
+}
+
+ul {
+    margin: 0px;
+}
+
+#container {
+    < !-- width: 800px;
+    -->
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#header {
+    height: auto;
+    margin: 0px;
+    background-color: #FFFF66;
+}
+
+#top_header {
+    display: flex;
+    justify-content: space-between;
+}
+
+#logo {
+    width: 50%;
+    height: 5em;
+    padding: 10px;
+}
+
+#link_container {
+    width: 50%;
+    background-color: #FFFF66;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    padding: 10px;
+}
+
+#page_link {
+    background-color: gray;
+    width: 100%;
+}
+
+#mainContent {
+
+}
+
+.wrapper {
+ display: flex;
+  flex-flow: row wrap;
+}
+
+.wrapper > * {
+  flex: 1 100%;
+}
+
+/* Medium screens */
+@media all and (min-width: 600px) {
+  /* We tell both sidebars to share a row */
+  .aside { flex: 1 auto; }
+}
+
+/* Large screens */
+@media all and (min-width: 800px) {
+  /* We invert order of first sidebar and main
+   * And tell the main element to take twice as much width as the other two sidebars
+   */
+  .main { flex: 5 0px; }
+  .aside-1 { order: 1; }
+  .main    { order: 2; }
+  .aside-2 { order: 3; }
+  .footer  { order: 4; }
+}
+
+.main {
+ display: flex;
+ flex-flow: column wrap;
+ align-items: center;
+}
+
+#register_links{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1em;
+}
+
+#leftSection {
+    background-color: #99FFFF;
+}
+
+#centreSection {
+    background-color: #00FF00;
+}
+
+#rightSection {
+    background-color: #99FFFF;
+}
+
+#footer {
+    clear: both;
+    height: 50px;
+    padding: 10px;
+    margin: 0px;
+    background-color: #FFFF66;
+}
+
+#footerLeft {
+    float: left;
+}
+
+#footerRight {
+    float: right;
+}

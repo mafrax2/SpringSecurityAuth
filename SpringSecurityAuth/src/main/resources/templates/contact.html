@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+</head>
+<body>
+<div id="container">
+    <div id="header">
+        <div id="top_header">
+            <div id="logo">logo</div>
+            <div id="link_container">
+                <a href="/home">Home</a>
+                <a href="/profile">Profile</a>
+                <a href="/transfer">Transfer</a>
+                <a href="/contact">Contact</a>
+                <a th:if="${user == null}" href="/login">login</a>
+                <a th:if="${user != null}" href="/logout">logoff</a>
+            </div>
+        </div>
+        <div id="page_link">
+            <a href="/home">home</a>
+        </div>
+
+    </div>
+    <div id="mainContent" class="wrapper">
+        <div id="leftSection" class="aside aside-1">
+
+        </div>
+        <div id="centreSection" class="main" >
+
+            <div>
+                <h2 class="h2">Liste des connections</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                        <th>Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${friends==null or friends.isEmpty()}">
+                        <td colspan="3">Aucune connections</td>
+                    </tr>
+                    <tr th:each="friend: ${friends}">
+                        <td><span th:text="${friend.firstName}"> Prénom </span></td>
+                        <td><span th:text="${friend.lastName}"> Nom </span></td>
+                        <td><span th:text="${friend.email}"> Email </span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <form method="post" th:action="@{/saveConnection}" th:object="${connection}">
+
+                <div class="form-group">
+                    <label for="forInput">For</label>
+                    <select class="form-control" id="forInput" name="forInput" th:field="*{id}">
+                        <option value="">Select Test Order</option>
+                        <option th:each="account : ${accounts}"
+                                th:value="${account.id}"
+                                th:text="${account.firstName}+' : '+${account.lastName}"></option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Créer</button>
+            </form>
+
+
+
+<!--            <div>-->
+<!--                <h2 class="h2">Liste des employées</h2>-->
+<!--                <table>-->
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                        <th>Prénom</th>-->
+<!--                        <th>Nom</th>-->
+<!--                        <th>Email</th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                    <tr th:if="${accounts.empty}">-->
+<!--                        <td colspan="3">Aucun employée en base de données</td>-->
+<!--                    </tr>-->
+<!--                    <tr th:each="account: ${accounts}">-->
+<!--                        <form method="post" th:action="@{/saveConnection}" th:object="${account}">-->
+<!--                        <td><span th:text="${account.firstName}"> Prénom </span></td>-->
+<!--                        <td><span th:text="${account.lastName}"> Nom </span></td>-->
+<!--                        <td><span th:field="${account.email}" th:text="${account.email}"> Email </span></td>-->
+<!--                            <td>   <input hidden type="text"  th:value="${account.email}">-->
+<!--                        <button type="submit" class="btn btn-primary">Add as Friend</button></td>-->
+<!--                        </form>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
+        </div>
+        <div id="rightSection" class="aside aside-2">
+
+        </div>
+    </div>
+    <div id="footer">
+        <div id="footerLeft">Footer</div>
+        <div id="footerRight">Copyleft 2013</div>
+    </div>
+</div>
+</body>
+</html>
