@@ -15,13 +15,13 @@ import java.util.List;
 public class MyUserDetails implements UserDetails {
 
 
-
-    private Integer id;
     private String userName;
     private String password;
     private boolean active;
     private List<GrantedAuthority> authorities;
 
+
+    private Integer id;
     private String firstName;
     private String lastName;
 

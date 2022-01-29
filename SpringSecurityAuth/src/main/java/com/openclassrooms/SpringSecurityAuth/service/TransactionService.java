@@ -48,4 +48,16 @@ public class TransactionService {
         return savedTransaction;
     }
 
+    public Float getBalance(Account account){
+        Float balance = new Float(0);
+        List<Transaction> sentTransactions = getSentTransactions(account.getId());
+        List<Transaction> receivedTransactions = getReceivedTransactions(account.getId());
+
+        Float sumSent = sentTransactions.stream().map(transaction -> transaction.getAmount()).reduce((float) 0, (a, b) -> a + b);
+        Float sumReceived = receivedTransactions.stream().map(transaction -> transaction.getAmount()).reduce((float) 0, (a, b) -> a + b);
+
+        balance = sumReceived - sumSent ;
+        return balance;
+    }
+
 }

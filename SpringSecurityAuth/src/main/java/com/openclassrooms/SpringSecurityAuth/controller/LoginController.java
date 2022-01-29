@@ -29,10 +29,14 @@ public class LoginController
     private AccountService accountService;
     private final PasswordEncoder passwordEncoder;
 
-
+    private Account account;
 
     @RequestMapping(value = {"/" , "/home"}, method = RequestMethod.GET)
     public String home(Model model, Principal user) {
+
+        if(user instanceof OAuth2AuthenticationToken){
+            this.account = loginService.getUserAccount(user);
+        }
 
         model.addAttribute("user", user);
         model.addAttribute("userdetails", loginService.getUserDetails(user));
@@ -42,15 +46,6 @@ public class LoginController
 
         return "home";
     }
-
-    @RolesAllowed("USER")
-    @RequestMapping("/home/**")
-    public String getUser(Principal user)
-    {
-        return "Welcome User " + user.toString();
-    }
-
-
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String viewRegister(Model model) {
@@ -63,7 +58,7 @@ public class LoginController
     public ModelAndView getRegistration(@ModelAttribute Account account){
         account.setRole("ROLE_USER");
         account.setPassword(passwordEncoder.encode(account.getPassword()));
-//        account.setEnabled(true);
+
         accountService.saveAccount(account);
 
         return new ModelAndView("redirect:/");

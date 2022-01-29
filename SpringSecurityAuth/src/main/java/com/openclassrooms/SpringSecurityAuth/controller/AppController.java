@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.PostConstruct;
 import java.security.Principal;
 import java.util.*;
 
@@ -30,7 +31,6 @@ public class AppController
     private final PasswordEncoder passwordEncoder;
 
 
-
     @RequestMapping(value = {"/profile"}, method = RequestMethod.GET)
     public String profile(Model model, Principal user) {
 
@@ -40,11 +40,13 @@ public class AppController
 
         model.addAttribute("userAccount", userAccount);
         List<Account> friends = new ArrayList<>();
-        if (userAccount.getId()!=null){
+        if (userAccount!=null ){
          friends = accountService.getFriends(userAccount.getId());
         }
 
         model.addAttribute("friends", friends);
+        Float balance = transactionService.getBalance(userAccount);
+        model.addAttribute("balance", balance);
 
         return "profile";
     }
@@ -68,6 +70,9 @@ public class AppController
         model.addAttribute("sentTransactions", sentTransactions);
         model.addAttribute("receivedTransactions", receivedTransactions);
 
+        Float balance = transactionService.getBalance(userAccount);
+        model.addAttribute("balance", balance);
+
 
         return "transfer";
     }
@@ -75,14 +80,14 @@ public class AppController
     @PostMapping("/saveTransaction")
     public ModelAndView getTransaction(@ModelAttribute Transaction transaction, Principal principal){
 
-         System.out.println(transaction);
         transaction.setEmissionDate(new Date());
-        Map<String, Object> userDetails = loginService.getUserDetails(principal);
-        Account account = accountService.getAccountByEmail((String) userDetails.get("email")).get();
-        transaction.setSenderAccount(account);
+        Account userAccount = loginService.getUserAccount(principal);
+        transaction.setSenderAccount(userAccount);
+        float v = (float) (transaction.getAmount() * 0.0005);
+        transaction.setAmount(transaction.getAmount()- v);
         transactionService.saveTransaction(transaction);
 
-        return new ModelAndView("redirect:/");
+        return new ModelAndView("redirect:/transfer");
 
     }
 
@@ -90,19 +95,24 @@ public class AppController
     public String contact(Model model, Principal user){
 
         model.addAttribute("user", user);
-
         Account userAccount = loginService.getUserAccount(user);
 
-        Iterable<Account> listAccount = accountService.getAccounts();
-        model.addAttribute("accounts", listAccount);
+        List<Account> listAccount = (List<Account>) accountService.getAccounts();
+        listAccount.remove(userAccount);
 
-        model.addAttribute("userAccount", userAccount);
         List<Account> friends = new ArrayList<>();
         if (userAccount.getId()!=null){
             friends = accountService.getFriends(userAccount.getId());
         }
 
+        listAccount.removeAll(friends);
+
         model.addAttribute("friends", friends);
+
+        model.addAttribute("accounts", listAccount);
+
+        model.addAttribute("userAccount", userAccount);
+
 
         Account connection = new Account();
         model.addAttribute("connection", connection);
@@ -113,11 +123,13 @@ public class AppController
     @PostMapping("/saveConnection")
     public ModelAndView saveConnection(@ModelAttribute Account account, Principal principal){
 
-        System.out.println(account);
+
         Account newFriend = accountService.getAccount(account.getId()).get();
-        Map<String, Object> userDetails = loginService.getUserDetails(principal);
-        Account userAccount = accountService.getAccountByEmail((String) userDetails.get("email")).get();
-        userAccount.getFriends().add(newFriend);
+
+        Account userAccount = loginService.getUserAccount(principal);
+        List<Account> friends = accountService.getFriends(userAccount.getId());
+        friends.add(newFriend);
+        userAccount.setFriends(friends);
         accountService.saveAccount(userAccount);
 
         return new ModelAndView("redirect:/contact");

@@ -7,8 +7,6 @@ import java.util.Date;
 
 @Entity
 @Data
-@DiscriminatorColumn(name="type",
-        discriminatorType = DiscriminatorType.STRING)
 public class Transaction {
 
     @Id
@@ -20,6 +18,9 @@ public class Transaction {
     private String description;
     @Column(name = "emission_date")
     private Date emissionDate;
+
+    @Column(name="type")
+    private String type;
 
     @ManyToOne
     @JoinColumn(name="sender_id")

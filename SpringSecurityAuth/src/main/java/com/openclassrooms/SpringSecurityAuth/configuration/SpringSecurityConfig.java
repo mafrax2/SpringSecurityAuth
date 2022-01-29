@@ -16,22 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Autowired
-//    private DataSource dataSource;
-
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth)
-//            throws Exception {
-//        auth.jdbcAuthentication()
-//                .dataSource(dataSource)
-//                .usersByUsernameQuery("select email,password,enabled "
-//                        + "from account "
-//                        + "where email = ?")
-//                .authoritiesByUsernameQuery("select email,authority "
-//                        + "from authorities "
-//                        + "where email = ?");
-//    }
-
     @Autowired
     UserDetailsService userDetailsService;
 
@@ -54,6 +38,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .oauth2Login().and().logout(l -> l
                 .logoutSuccessUrl("/").permitAll())
                 ;
+
     }
 
     @Bean

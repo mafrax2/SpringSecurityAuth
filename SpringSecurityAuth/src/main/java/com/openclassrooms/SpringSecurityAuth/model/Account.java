@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.openclassrooms.SpringSecurityAuth.configuration.MyUserDetails;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 @Data
 @Entity
 @AllArgsConstructor
+@Component
 public class Account {
 
 
@@ -47,7 +49,6 @@ public class Account {
     @JsonIgnore
     @OneToMany(
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
             fetch = FetchType.EAGER)
     @JoinColumn(name = "sender_id")
     private List<Transaction> transactions;

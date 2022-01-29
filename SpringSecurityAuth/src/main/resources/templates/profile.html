@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <title>Welcome</title>
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+
 </head>
 <body>
 <div id="container">
@@ -37,6 +38,10 @@
 
             </h1>
 
+            <h2>
+                Balance : <b th:text="${balance}"> </b>
+            </h2>
+
             <div>
                 <h2 class="h2">Liste des connections</h2>
                 <table>
@@ -69,5 +74,8 @@
         <div id="footerRight">Copyleft 2013</div>
     </div>
 </div>
+<th:block layout:fragment="script">
+    <script th:src="@{/action.js}"></script>
+</th:block>
 </body>
 </html>
