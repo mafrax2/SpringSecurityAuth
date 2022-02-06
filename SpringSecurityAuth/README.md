@@ -26,14 +26,35 @@ https://maven.apache.org/install.html
 https://dev.mysql.com/downloads/mysql/
 
 After downloading the mysql 8 installer and installing it, you will be asked to configure the password for the default `root` account.
-This code uses the default root account to connect and the password can be set as `rootroot`. If you add another user/credentials make sure to change the same in the code base.
+
+This code uses the default root account to connect and the password can be set as `rootroot`.
+
+If you add another user/credentials make sure to change the same in the code base.
 
 ### Running App
 
 Post installation of MySQL, Java and Maven, you will have the choice to let spring boot create the tables for you or do it yourself.
-For this, please run the sql commands present in the 'schema.sql' file first under the `resources` folder in the code base, then `Data.sql` file .
 
-Finally, you will be ready to import the code into an IDE of your choice and run the App.java to launch the application.
+If you want Springboot to handle it for you first add :
 
-### Testing
+spring.datasource.username=root
+spring.datasource.password=rootroot
+
+to the application.properties file, then launch the application with your IDE
+
+If you want to create the tables yourself please connect to your MySQL instance, and run the sql commands present in the 'schema.sql' file first under the `resources` folder in the code base, then `Data.sql` file .
+
+A third option would be to run mvn clean package -DskipTests=true in your ide or in a command window after navigating to the project folder. 
+
+This will generate a jar file. Please copy this jar file to a folder of your choice.
+
+Then add a "config" folder in this folder. Then add an application.properties file in it. Write 
+
+spring.datasource.username=root
+spring.datasource.password=rootroot
+
+in this file. Then navigate on your terminal navigate to the folder with the jar file and run 
+
+java -jar "NAME OF THE JAR".jar
+
 
