@@ -48,17 +48,18 @@
                 <form method="post" th:action="@{/saveTransaction}" th:object="${Transaction}">
 
                     <div class="form-group">
-                        <label for="transacType">For</label>
+                        <label for="transacType">Type of transaction</label>
                         <select class="form-control" id="transacType" name="transacType" th:field="*{type}" th:onChange="onSelectType()">
                             <option value="">Select Transaction type</option>
-                            <option th:value="*{type}">BANK</option>
-                            <option th:value="*{type}">USER</option>
+                            <option th:each="type : ${types}"
+                                    th:value="${type}"
+                                    th:text="${type}"></option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="forInput">For</label>
-                        <select class="form-control" id="forInput" name="forInput" th:field="*{receiverAccount.id}" >
+                        <select class="form-control" id="forInput" name="forInput" th:field="*{receiverAccount}" >
                             <option value="">Select Test Order</option>
                             <option th:each="friend : ${friends}"
                                     th:value="${friend.id}"
@@ -90,12 +91,14 @@
 
             <div>
                 <h2 class="h2">Liste des transactions</h2>
-                <table>
+                <table border="1">
                     <thead>
                     <tr>
                         <th>Prénom</th>
                         <th>Nom</th>
-                        <th>Email</th>
+                        <th>Description</th>
+                        <th>Emission date</th>
+                        <th>Amount</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -106,7 +109,8 @@
                         <td><span th:text="${transaction.receiverAccount}==null ? 'BANK' : ${transaction.receiverAccount.firstName}"> Prénom </span></td>
                         <td><span th:text="${transaction.receiverAccount}==null ? 'BANK' : ${transaction.receiverAccount.lastName}"> Nom </span></td>
                         <td><span th:text="${transaction.description}"> description </span></td>
-                        <td><span th:text="${transaction.emissionDate}"> Date </span></td>
+<!--                        #dates.format(standardDate, 'dd-MM-yyyy')-->
+                        <td><span th:text="${#dates.format(transaction.emissionDate, 'dd-MM-yyyy')}"> Date </span></td>
                         <td><span th:text="${-1*transaction.amount}"> amount </span></td>
 
                     </tr>

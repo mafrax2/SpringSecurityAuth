@@ -15,8 +15,8 @@
             <a href="/profile">Profile</a>
             <a href="/transfer">Transfer</a>
             <a href="/contact">Contact</a>
-            <a th:if="${user == null}" href="/login">login</a>
-                <a th:if="${user != null}" href="/logout">logoff</a>
+            <a th:if="${user== null || user.getEmail()  == null}" href="/login">login</a>
+                <a th:if="${user!= null && user.getEmail()  != null}" href="/logout">logoff</a>
         </div>
         </div>
         <div id="page_link">
@@ -31,10 +31,10 @@
         <div id="centreSection" class="main" >
 
             <h1>Welcome to Pay My Buddy
-                  <b th:text="${userdetails.get('login')!=null ? userdetails.get('login') : userdetails.get('name')}"> </b>
+                  <b th:text="${user!= null && user.getEmail() !=null ? user.getEmail() : ''}"> </b>
             </h1>
 
-            <tr th:if="${user == null}">
+            <tr th:if="${user== null || user.getEmail() == null}">
             <div id="register_links">
                 <a href="/login">login</a>
                 <a href="/register">register</a>
@@ -43,21 +43,23 @@
             </tr>
 
             <div>
-                <h2 class="h2">Liste des employées</h2>
+                <h2 class="h2">Liste des utilisateurs</h2>
                 <table>
                     <thead>
                     <tr>
                         <th>Prénom</th>
                         <th>Nom</th>
+                        <th>Email</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:if="${accounts.empty}">
-                        <td colspan="3">Aucun employée en base de données</td>
+                        <td colspan="3">Aucun utilisateur en base de données</td>
                     </tr>
                     <tr th:each="account: ${accounts}">
                         <td><span th:text="${account.firstName}"> Prénom </span></td>
                         <td><span th:text="${account.lastName}"> Nom </span></td>
+                        <td><span th:text="${account.email}"> Email </span></td>
                     </tr>
                     </tbody>
                 </table>

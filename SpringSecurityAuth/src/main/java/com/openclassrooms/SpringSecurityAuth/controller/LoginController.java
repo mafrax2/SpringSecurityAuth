@@ -1,13 +1,10 @@
 package com.openclassrooms.SpringSecurityAuth.controller;
 
-import javax.annotation.security.RolesAllowed;
-
 import com.openclassrooms.SpringSecurityAuth.model.Account;
 import com.openclassrooms.SpringSecurityAuth.service.AccountService;
 import com.openclassrooms.SpringSecurityAuth.service.LoginService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -16,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
-import java.util.Map;
 
 @Controller
 @Data
@@ -34,11 +30,9 @@ public class LoginController
     @RequestMapping(value = {"/" , "/home"}, method = RequestMethod.GET)
     public String home(Model model, Principal user) {
 
-        if(user instanceof OAuth2AuthenticationToken){
-            this.account = loginService.getUserAccount(user);
-        }
+        this.account = loginService.getUserAccount(user);
 
-        model.addAttribute("user", user);
+        model.addAttribute("user", account);
         model.addAttribute("userdetails", loginService.getUserDetails(user));
 
         Iterable<Account> listAccount = accountService.getAccounts();
@@ -58,7 +52,7 @@ public class LoginController
     public ModelAndView getRegistration(@ModelAttribute Account account){
         account.setRole("ROLE_USER");
         account.setPassword(passwordEncoder.encode(account.getPassword()));
-
+        account.setEnabled(true);
         accountService.saveAccount(account);
 
         return new ModelAndView("redirect:/");

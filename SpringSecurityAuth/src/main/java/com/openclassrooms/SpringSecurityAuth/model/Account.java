@@ -67,6 +67,9 @@ public class Account {
         this.password = user.getPassword();
         this.email = user.getUsername();
     }
+
+
+
 }
 
 

@@ -14,13 +14,18 @@ import java.util.Optional;
 @Service
 public class AccountService {
 
-    @Autowired
+
     private AccountRepository accountRepository;
+
+    public AccountService(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
 
     public Optional<Account> getAccount(final int id) {
         return accountRepository.findById(id);
+    }
 
-    }public Optional<Account> getAccountByEmail(String email) {
+    public Optional<Account> getAccountByEmail(String email) {
         return accountRepository.findByEmail(email);
     }
 
@@ -31,9 +36,6 @@ public class AccountService {
     @Transactional
     public Account saveAccount(Account account) {
         Account savedAccount;
-
-        // Règle de gestion : Le nom de famille doit être mis en majuscule.
-        account.setLastName(account.getLastName().toUpperCase());
 
         if(account.getId() == null) {
             // Si l'id est nul, alors c'est un nouvel employé.

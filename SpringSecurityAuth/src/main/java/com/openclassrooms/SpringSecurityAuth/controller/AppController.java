@@ -10,13 +10,12 @@ import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.PostConstruct;
 import java.security.Principal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @Data
@@ -64,6 +63,12 @@ public class AppController
 
         model.addAttribute("Transaction", transaction);
 
+        List<String> types = new ArrayList<>();
+        types.add("BANK");
+        types.add("USER");
+        model.addAttribute("types", types);
+
+
         List<Transaction> receivedTransactions = transactionService.getReceivedTransactions(userAccount.getId());
         List<Transaction> sentTransactions = transactionService.getSentTransactions(userAccount.getId());
 
@@ -98,18 +103,18 @@ public class AppController
         Account userAccount = loginService.getUserAccount(user);
 
         List<Account> listAccount = (List<Account>) accountService.getAccounts();
-        listAccount.remove(userAccount);
+        List<Account> collect = listAccount.stream().filter(a -> a.getId() != userAccount.getId()).collect(Collectors.toList());
 
         List<Account> friends = new ArrayList<>();
         if (userAccount.getId()!=null){
             friends = accountService.getFriends(userAccount.getId());
         }
 
-        listAccount.removeAll(friends);
+        collect.removeAll(friends);
 
         model.addAttribute("friends", friends);
 
-        model.addAttribute("accounts", listAccount);
+        model.addAttribute("accounts", collect);
 
         model.addAttribute("userAccount", userAccount);
 

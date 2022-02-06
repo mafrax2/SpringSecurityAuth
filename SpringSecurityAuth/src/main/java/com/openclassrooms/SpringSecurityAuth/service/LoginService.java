@@ -1,11 +1,10 @@
-package com.openclassrooms.SpringSecurityAuth.service;
+        package com.openclassrooms.SpringSecurityAuth.service;
 
 import com.openclassrooms.SpringSecurityAuth.configuration.MyUserDetails;
 import com.openclassrooms.SpringSecurityAuth.model.Account;
+import com.openclassrooms.SpringSecurityAuth.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -20,6 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+
 
 
 @Service
