@@ -7,3 +7,5 @@ insert into connection values (1,2);
 insert into connection values (2,1);
 insert into connection values (1,3);
 insert into connection values (4,1);
+
+insert into transaction values (1, 100,  "truc",  null, "BANK", 1 , null);
