@@ -37,5 +37,5 @@ Finally, you will be ready to import the code into an IDE of your choice and run
 
 ### Testing
 
-[Contribution guidelines for this project](src/main/resources/images/class.png)
+![Contribution guidelines for this project](src/main/resources/images/class.png)
 
