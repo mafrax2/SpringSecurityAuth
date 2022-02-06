@@ -58,3 +58,5 @@ in this file. Then navigate on your terminal navigate to the folder with the jar
 java -jar "NAME OF THE JAR".jar
 
 
+![Contribution guidelines for this project](src/main/resources/images/class.png)
+
