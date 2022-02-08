@@ -35,16 +35,7 @@ public class AccountService {
 
     @Transactional
     public Account saveAccount(Account account) {
-        Account savedAccount;
-
-        if(account.getId() == null) {
-            // Si l'id est nul, alors c'est un nouvel employé.
-            savedAccount = accountRepository.save(account);
-        } else {
-            savedAccount = accountRepository.save(account);
-        }
-
-        return savedAccount;
+        return accountRepository.save(account);
     }
 
     @Transactional

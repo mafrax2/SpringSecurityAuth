@@ -43,9 +43,7 @@ public class TransactionService {
 
     @Transactional
     public Transaction saveTransaction(Transaction transaction){
-
-        Transaction savedTransaction = transactionRepository.save(transaction);
-        return savedTransaction;
+        return transactionRepository.save(transaction);
     }
 
     public Float getBalance(Account account){
