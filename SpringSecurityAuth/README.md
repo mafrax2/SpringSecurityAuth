@@ -57,6 +57,11 @@ in this file. Then navigate on your terminal navigate to the folder with the jar
 
 java -jar "NAME OF THE JAR".jar
 
+### Diagramme de classe
 
-![Contribution guidelines for this project](src/main/resources/images/class.png)
+![image](https://github.com/mafrax2/SpringSecurityAuth/blob/master/SpringSecurityAuth/src/main/resources/images/Class.png)
+
+### Modèle physique
+
+![image](https://github.com/mafrax2/SpringSecurityAuth/blob/master/SpringSecurityAuth/src/main/resources/images/modelePhi.png)
 
