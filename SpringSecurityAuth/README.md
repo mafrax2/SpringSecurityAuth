@@ -59,9 +59,9 @@ java -jar "NAME OF THE JAR".jar
 
 ### Diagramme de classe
 
-![image](https://github.com/mafrax2/SpringSecurityAuth/blob/master/SpringSecurityAuth/src/main/resources/images/Class.png)
+![image](https://github.com/mafrax2/SpringSecurityAuth/blob/master/SpringSecurityAuth/src/main/resources/images/P6_03_classdiagramm.jpeg)
 
 ### Modèle physique
 
-![image](https://github.com/mafrax2/SpringSecurityAuth/blob/master/SpringSecurityAuth/src/main/resources/images/modelePhi.png)
+![image](https://github.com/mafrax2/SpringSecurityAuth/blob/master/SpringSecurityAuth/src/main/resources/images/P6_04_UML_modelephi.jpg)
 
