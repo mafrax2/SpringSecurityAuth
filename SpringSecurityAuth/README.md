@@ -59,7 +59,7 @@ java -jar "NAME OF THE JAR".jar
 
 ### Diagramme de classe
 
-![image](https://github.com/mafrax2/SpringSecurityAuth/blob/master/SpringSecurityAuth/src/main/resources/images/P6_03_classdiagramm.jpeg)
+![image](https://github.com/mafrax2/SpringSecurityAuth/blob/master/SpringSecurityAuth/src/main/resources/images/P6_03_classdiagramm.jpg)
 
 ### Modèle physique
 
